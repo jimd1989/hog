@@ -1,0 +1,11 @@
+- utils
+  - circular buffer
+- midi
+  - listen on channel
+  - filter for notes/CC only
+- synth
+  - voices
+  - cc
+  - audio out
+- vm
+  - everything

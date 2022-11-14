@@ -1,26 +1,31 @@
-#include <stdint.h>
+#include <err.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "cell.h"
 #include "stack.h"
 
-Stack stack(void) {
-  Stack s = {-1, {{0}}};
+Stack stack(size_t size) {
+  Stack s = {0};
+  s.size = size;
+  if (size > STACK_SIZE) {
+    errx(-1, "%zu is greater than max stack size %zu", size, STACK_SIZE);
+  }
   return s;
 }
 
-Cell *pop(Stack *s) {
-  return s->n >= 0 ? &(s->cells[s->n--]) : NULL;
+Cell *popStack(Stack *s) {
+  if (s->head > 0) {
+    return &(s->data[--s->head]);
+  } else {
+    return NULL;
+  }
 }
 
-void pushP(Stack *s, void *p) {
-  s->cells[++s->n].p = p;
-}
-
-void pushI(Stack *s, int64_t n) {
-  s->cells[++s->n].i = n; 
-}
-
-void pushF(Stack *s, double f) {
-  s->cells[++s->n].f = f;
+void pushStack(Stack *s, Cell c) {
+  if (s->head >= s->size) {
+    errx(-1, "stack overflow: %zu", s->size);
+  } else {
+    s->data[s->head++] = c;
+  }
 }

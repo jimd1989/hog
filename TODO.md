@@ -1,10 +1,10 @@
 - utils
-  - circular buffer
+  - expensive queue remove function
 - midi
   - listen on channel
   - filter for notes/CC only
 - synth
-  - voices
+  - voices (queue + stack)
   - cc
   - audio out
 - vm

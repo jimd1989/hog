@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 typedef union Cell {
   void          * p;
   int64_t         i;

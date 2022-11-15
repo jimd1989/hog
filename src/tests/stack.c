@@ -39,5 +39,4 @@ void testStack(void) {
   if (p != NULL) {
     errx(-1, "expected NULL; got %p", (void *)p);
   }
-  warnx("  ok");
 }

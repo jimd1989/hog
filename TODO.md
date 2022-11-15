@@ -1,10 +1,13 @@
 - utils
-  - expensive queue remove function
+  - bit array
+    - set index to 0
 - midi
   - listen on channel
   - filter for notes/CC only
 - synth
-  - voices (queue + stack)
+  - voices
+    - stealing buffer?
+    - retriggering note
   - cc
   - audio out
 - vm

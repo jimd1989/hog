@@ -2,18 +2,18 @@
 #include <stdlib.h>
 
 #include "cell.h"
-#include "queue.h"
+#include "ring.h"
 
-Queue queue(size_t size) {
-  Queue q = {0};
+Ring ring(size_t size) {
+  Ring q = {0};
   q.size = size;
-  if (size > QUEUE_SIZE) {
-    errx(-1, "%zu is greater than max queue size %zu", size, QUEUE_SIZE);
+  if (size > RING_SIZE) {
+    errx(-1, "%zu is greater than max queue size %zu", size, RING_SIZE);
   }
   return q;
 }
 
-void deleteFromQueue(Queue *q, void *x) {
+void deleteFromRing(Ring *q, void *x) {
   size_t i = 0;
   size_t prev = 0;
   void *val = q->data[q->head];
@@ -33,13 +33,17 @@ void deleteFromQueue(Queue *q, void *x) {
   }
 }
 
-void incrementQueue(Queue *q) {
+void incrementRing(Ring *q) {
   q->head = (q->head + 1) % q->size;
 }
 
-void pushQueue(Queue *q, void *x) {
+void *popOldest(Ring *q) {
+  return q->data[q->head];
+}
+
+void pushRing(Ring *q, void *x) {
   q->data[q->head] = x;
   q->population = q->population == q->size ? q->size : q->population + 1;
-  incrementQueue(q);
+  incrementRing(q);
 }
 

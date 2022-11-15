@@ -1,22 +1,22 @@
 #include <err.h>
 #include <stdlib.h>
 
-#include "../utils/queue.h"
+#include "../utils/ring.h"
 #include "test.h"
 
-void testQueue(void) {
-  Queue q = queue(6);
+void testRing(void) {
+  Ring q = ring(6);
   void *expected[6] = {0};
   size_t i = 0;
   int x = 100;
   int y = 200;
-  warnx("queue");
+  warnx("ring");
   warnx("  delete Y from XYXX00 to make XXX000");
-  pushQueue(&q, (void *)&x);
-  pushQueue(&q, (void *)&y);
-  pushQueue(&q, (void *)&x);
-  pushQueue(&q, (void *)&x);
-  deleteFromQueue(&q, (void*)&y);
+  pushRing(&q, (void *)&x);
+  pushRing(&q, (void *)&y);
+  pushRing(&q, (void *)&x);
+  pushRing(&q, (void *)&x);
+  deleteFromRing(&q, (void*)&y);
   for (i = 0; i < 3; i++) {
     expected[i] = (void *)&x;
   }
@@ -34,10 +34,10 @@ void testQueue(void) {
     errx(-1, "expected 3; got %zu", q.head);
   }
   warnx("  XXX000 + XXXY = YXXXXX");
-  pushQueue(&q, (void *)&x);
-  pushQueue(&q, (void *)&x);
-  pushQueue(&q, (void *)&x);
-  pushQueue(&q, (void *)&y);
+  pushRing(&q, (void *)&x);
+  pushRing(&q, (void *)&x);
+  pushRing(&q, (void *)&x);
+  pushRing(&q, (void *)&y);
   if (q.data[0] != &y) {
     errx(-1, "expected Y; got %p", (void *)q.data[0]);
   }
@@ -54,5 +54,4 @@ void testQueue(void) {
   if (q.head != 1) {
     errx(-1, "expected 1; got %zu", q.head);
   }
-  warnx("  ok");
 }

@@ -25,5 +25,4 @@ void testMidiReader(void) {
   if (p != NULL) {
     errx(-1, "midi buffer pop failure: expected NULL; got %p", (void *)p);
   }
-  warnx("  ok");
 }

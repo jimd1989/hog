@@ -5,5 +5,4 @@
 
 void testBuffer(void) {
   warnx("buffer");
-  warnx("  ok");
 }
